@@ -33,7 +33,7 @@ const run = async () => {
 
         })
 
-        // Get all services
+        // Get specific services
         app.get('/services/:id', async (req, res) => {
             // get service id from client site
             const serviceId = req.params.id;
@@ -60,10 +60,30 @@ const run = async () => {
 
         })
         // Delete a service
-        app.delete('/services/:id', async(req, res) => {
+        app.delete('/services/:id', async (req, res) => {
             const serviceId = req.params.id;
             const query = { _id: ObjectId(serviceId) }
             const result = await servicesCollection.deleteOne(query);
+            res.send(result)
+
+
+        })
+        // Update a single service
+        app.put('/services/:id', async (req, res) => {
+            const serviceId = req.params.id;
+            const updateServiceData = req.body;
+            const filter = { _id: ObjectId(serviceId) };
+            const options = { upsert: true };
+            const updateDocs = {
+                $set: {
+                    name: updateServiceData.name,
+                    price: updateServiceData.price,
+                    description: updateServiceData.description,
+                    img: updateServiceData.img
+
+                }
+            }
+            const result = await servicesCollection.updateOne(filter, updateDocs, options)
             res.send(result)
 
 
