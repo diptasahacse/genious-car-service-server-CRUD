@@ -24,14 +24,13 @@ const verifyJWT = (req, res, next) => {
 
 
         }
-        else {
-            console.log(decoded)
-            req.decoded = decoded;
-        }
+        console.log(decoded)
+        req.decoded = decoded;
+        next();
 
     })
 
-    next();
+
 
 
 }
@@ -150,7 +149,7 @@ const run = async () => {
                 res.send(allOrders)
 
             }
-            else{
+            else {
                 res.status(403).send({ message: "Forbidden access" });
 
             }
