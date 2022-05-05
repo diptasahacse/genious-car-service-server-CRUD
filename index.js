@@ -168,10 +168,6 @@ const run = async () => {
 }
 run().catch(console.dir)
 
-
-app.get('/', (req, res) => {
-    res.send('Ready..')
-})
 // get All service
 app.get('/', (req, res) => {
     res.send('Ready..')
